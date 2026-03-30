@@ -1,0 +1,9 @@
+{
+  "extends": "@repo/typescript-config/nest.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": "./dist"
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist", ".turbo"]
+}
