@@ -1,0 +1,22 @@
+{
+  "name": "environment",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/environment/src",
+  "projectType": "library",
+  "tags": ["scope:shared"],
+  "// targets": "to see all targets run: nx show project environment --web",
+  "targets": {
+    "auth": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "infisical login --domain https://infisical.wuguishifu.dev"
+      }
+    },
+    "setup": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "/bin/sh ./libs/environment/setup.sh"
+      }
+    }
+  }
+}

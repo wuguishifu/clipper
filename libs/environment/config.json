@@ -1,0 +1,10 @@
+{
+  "infisicalDomain": "https://infisical.wuguishifu.dev",
+  "infisicalProjectId": "469f226e-0228-4e5d-af58-a521db80cc53",
+  "apps": {
+    "saturn": {
+      "hasSecrets": true
+    }
+  },
+  "libs": {}
+}
