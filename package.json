@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "prepush": "nx run-many -t lint,tsc,circular-deps --output-style=static",
+    "prepush": "nx run-many -t lint,typecheck,circular-deps --output-style=static",
     "prepare": "husky",
     "format": "pnpm prettier --write ."
   },
