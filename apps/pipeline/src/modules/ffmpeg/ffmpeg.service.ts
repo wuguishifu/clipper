@@ -13,13 +13,17 @@ export class FFmpegService {
   public async extractAudio({
     inputPath,
     outputPath,
+    streamIndex,
     overrideTimeoutMs,
   }: {
     inputPath: string;
     outputPath: string;
+    streamIndex?: number;
     overrideTimeoutMs?: number;
   }): Promise<FFmpegResult> {
-    this.logger.debug(`Starting audio extraction for ${inputPath}`);
+    this.logger.debug(
+      `Starting audio extraction for ${inputPath}${streamIndex !== undefined ? ` (stream ${streamIndex})` : ''}`,
+    );
     const abortController = new AbortController();
 
     const ffmpegArgs = [
@@ -27,6 +31,7 @@ export class FFmpegService {
       '-y',
       '-i',
       inputPath,
+      ...(streamIndex !== undefined ? ['-map', `0:${streamIndex}`] : []),
       '-vn',
       '-ar',
       '16000',

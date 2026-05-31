@@ -7,7 +7,9 @@ import { binPath } from '../../common/constants';
 
 const DEFAULT_WHISPER_TIMEOUT_MS = 5 * 60 * 1000;
 
-type WhisperResult = { success: true } | { success: false; reason: string };
+type WhisperResult =
+  | { success: true; outputPath: string }
+  | { success: false; reason: string };
 
 @Injectable()
 export class WhisperService {
@@ -63,6 +65,6 @@ export class WhisperService {
       };
     }
 
-    return { success: true };
+    return { success: true, outputPath: `${outputBase}.json` };
   }
 }
