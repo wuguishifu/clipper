@@ -19,3 +19,4 @@ export const clipResultSchema = z.discriminatedUnion('found', [
   clipResultFoundSchema,
   clipResultNotFoundSchema,
 ]);
+export type ClipResult = z.infer<typeof clipResultSchema>;
