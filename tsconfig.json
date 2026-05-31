@@ -5,6 +5,12 @@
   "references": [
     {
       "path": "./libs/contracts-saturn"
+    },
+    {
+      "path": "./apps/saturn"
+    },
+    {
+      "path": "./libs/nest-common"
     }
   ]
 }

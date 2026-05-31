@@ -38,7 +38,7 @@ export default [
           ],
           pathGroups: [
             {
-              pattern: '@universe/**',
+              pattern: '@clipper/**',
               group: 'internal',
             },
             {
