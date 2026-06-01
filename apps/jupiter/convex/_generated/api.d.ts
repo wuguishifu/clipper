@@ -8,6 +8,9 @@
  * @module
  */
 
+import type * as auth from "../auth.js";
+import type * as common_auth_passwordAccounts from "../common/auth/passwordAccounts.js";
+import type * as common_constants from "../common/constants.js";
 import type * as common_functions_customFunctions from "../common/functions/customFunctions.js";
 
 import type {
@@ -17,6 +20,9 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  auth: typeof auth;
+  "common/auth/passwordAccounts": typeof common_auth_passwordAccounts;
+  "common/constants": typeof common_constants;
   "common/functions/customFunctions": typeof common_functions_customFunctions;
 }>;
 

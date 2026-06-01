@@ -5,6 +5,10 @@
     "saturn": {
       "hasSecrets": true,
       "hasConvex": true
+    },
+    "vulcan": {
+      "hasConvex": true,
+      "publicPrefix": "NEXT_PUBLIC_"
     }
   },
   "libs": {}
