@@ -46,6 +46,7 @@
   "packageManager": "pnpm@10.2.0",
   "dependencies": {
     "@anthropic-ai/sdk": "^0.100.1",
+    "@auth/core": "^0.34.3",
     "@convex-dev/auth": "*",
     "@convex-dev/resend": "^0.2.4",
     "@nestjs/common": "^11.1.24",
