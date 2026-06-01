@@ -1,7 +1,7 @@
 import { initContract } from '@ts-rest/core';
 import z from 'zod';
 
-import { clipResultSchema } from '../../types';
+import { clipResultSchema } from '../../types/clip';
 
 const c = initContract();
 
