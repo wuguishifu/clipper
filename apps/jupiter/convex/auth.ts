@@ -10,7 +10,7 @@ const providers = [
   }),
 ];
 
-const allowedSchemas = ['clipper://'];
+const allowedSchemas = ['vulcan://'];
 
 const allowedWebRedirectPatterns = [
   /^http:\/\/localhost:\d{2,5}(\/|$)/,
