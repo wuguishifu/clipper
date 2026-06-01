@@ -1,0 +1,28 @@
+{
+  "name": "jupiter-kore",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/jupiter-kore/src",
+  "projectType": "library",
+  "tags": ["scope:shared"],
+  "// targets": "to see all targets run: nx show project jupiter-kore --web",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "dependsOn": [{ "projects": ["jupiter"], "target": "typecheck" }],
+      "options": {
+        "cwd": "libs/jupiter-kore",
+        "command": "node ./scripts/build.mjs"
+      }
+    },
+    "typecheck": {
+      "dependsOn": ["build"]
+    },
+    "circular-deps": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm madge . --circular --extensions js,ts,tsx --warning --exclude '(^|/)convex/_generated(/|$)'",
+        "cwd": "libs/jupiter-kore"
+      }
+    }
+  }
+}

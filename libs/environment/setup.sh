@@ -25,10 +25,22 @@ INFISICAL_PROJECT_ID=$(echo $CONFIG | jq -r '.infisicalProjectId')
 INFISICAL_ENVIRONMENT_MAP='{"development": "dev", "production": "prod"}'
 INFISICAL_ENVIRONMENT=$(echo $INFISICAL_ENVIRONMENT_MAP | jq -r ".$ENVIRONMENT")
 
+if [ ! -f "apps/jupiter/.env.local" ]; then
+  echo "jupiter .env.local missing"
+  exit 1
+fi
+
+source apps/jupiter/.env.local
+if [ -z "$CONVEX_URL" ] || [ -z "$CONVEX_SITE_URL" ]; then
+  echo "CONVEX_URL or CONVEX_SITE_URL missing"
+  exit 1
+fi
+
 generate_env() {
   local TYPE="$1"
   local NAME="$2"
   local HAS_SECRETS="$3"
+  local HAS_CONVEX="$4"
 
   local ENV_FILE="$TYPE/$NAME/.env.local"
 
@@ -49,6 +61,27 @@ generate_env() {
       --output dotenv >> "$ENV_FILE"
   fi
 
+
+  if [ "$HAS_CONVEX" = true ]; then
+    if [ "$ENVIRONMENT" = "production" ]; then
+      echo "Skipping convex environment variables for production environment"
+    else
+      echo "Loading convex env variables for project: $NAME"
+
+      PUBLIC_PREFIX=$(
+        echo "$CONFIG" |
+        jq -r --arg dir "$TYPE" --arg name "$NAME" \
+          '.[$dir][$name].publicPrefix // ""'
+      )
+
+      {
+        echo ""
+        echo "# convex variables"
+        echo "${PUBLIC_PREFIX}CONVEX_URL=$CONVEX_URL"
+        echo "${PUBLIC_PREFIX}CONVEX_SITE_URL=$CONVEX_SITE_URL"
+      } >> "$ENV_FILE"
+    fi
+  fi
 }
 
 echo "$CONFIG" | jq -r '
@@ -59,13 +92,15 @@ echo "$CONFIG" | jq -r '
   | [
       $type,
       .key,
-      (.value.hasSecrets // false)
+      (.value.hasSecrets // false),
+      (.value.hasConvex // false)
     ]
   | @tsv
 ' |
-while IFS=$'\t' read -r TYPE NAME HAS_SECRETS; do
+while IFS=$'\t' read -r TYPE NAME HAS_SECRETS HAS_CONVEX; do
   generate_env \
     "$TYPE" \
     "$NAME" \
-    "$HAS_SECRETS"
+    "$HAS_SECRETS" \
+    "$HAS_CONVEX"
 done

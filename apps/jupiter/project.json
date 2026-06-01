@@ -1,0 +1,111 @@
+{
+  "name": "jupiter",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/jupiter",
+  "projectType": "application",
+  "tags": ["scope:server", "build-on-install"],
+  "// targets": "to see all targets run: nx show project jupiter --web",
+  "targets": {
+    "clean": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/jupiter",
+        "parallel": true,
+        "commands": [
+          "rm -rf ./dist",
+          "rm -rf ./node_modules",
+          "rm -rf ./out-tsc"
+        ]
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "parallel": false,
+        "commands": [
+          "nx typecheck jupiter --skip-sync --skip-nx-cache",
+          "nx build jupiter-kore --skip-nx-cache"
+        ]
+      }
+    },
+    "build:kore": {
+      "executor": "nx:run-commands",
+      "options": {
+        "parallel": false,
+        "commands": ["nx build jupiter", "nx build jupiter-kore"]
+      }
+    },
+    "convex": {
+      "executor": "nx:run-commands",
+      "//note": "Example for how to forward commands to the convex CLI: nx convex jupiter -- dev --help",
+      "options": {
+        "cwd": "apps/jupiter",
+        "forwardAllArgs": true,
+        "command": "convex"
+      }
+    },
+    "setup": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/jupiter",
+        "parallel": false,
+        "commands": ["convex dev --once", "nx setup environment"]
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "continuous": true,
+      "options": {
+        "parallel": true,
+        "commands": [
+          {
+            "command": "nx convex jupiter -- dev",
+            "description": "Run Convex dev watcher",
+            "prefix": "jupiter",
+            "prefixColor": "cyan"
+          },
+          {
+            "command": "nx run jupiter:watch-kore",
+            "description": "Rebuild jupiter-kore on change",
+            "prefix": "kore",
+            "prefixColor": "magenta"
+          }
+        ]
+      }
+    },
+    "watch-kore": {
+      "executor": "nx:run-commands",
+      "continuous": true,
+      "options": {
+        "command": "nx watch --projects=jupiter --initialRun -- nx build jupiter-kore"
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/jupiter",
+        "command": "convex deploy"
+      }
+    },
+    "preview-urls": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "bash ./scripts/convex/get-preview-urls.sh {args.previewName}"
+      }
+    },
+    "update:ai-files": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/jupiter",
+        "command": "npx convex ai-files update"
+      }
+    },
+    "circular-deps": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm madge . --circular --extensions js,ts,tsx --warning --exclude '(^|/)convex/_generated(/|$)'",
+        "cwd": "apps/jupiter"
+      }
+    }
+  }
+}

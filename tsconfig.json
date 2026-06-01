@@ -11,6 +11,12 @@
     },
     {
       "path": "./libs/nest-common"
+    },
+    {
+      "path": "./libs/jupiter-kore"
+    },
+    {
+      "path": "./apps/jupiter"
     }
   ]
 }
