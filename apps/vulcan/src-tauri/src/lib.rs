@@ -10,7 +10,9 @@ pub fn run() {
         }));
     }
 
-    builder = builder.plugin(tauri_plugin_deep_link::init())
+    builder = builder.plugin(tauri_plugin_deep_link::init());
+
+    builder
         .setup(|app| {
             if cfg!(debug_assertions) {
                 app.handle().plugin(

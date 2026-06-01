@@ -213,6 +213,9 @@ importers:
       '@tauri-apps/plugin-deep-link':
         specifier: ~2
         version: 2.4.9
+      '@universe/jupiter-kore':
+        specifier: workspace:*
+        version: link:../../libs/jupiter-kore
       next:
         specifier: ~16.1.6
         version: 16.1.7(@babel/core@7.29.7)(babel-plugin-macros@3.1.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(sass@1.100.0)

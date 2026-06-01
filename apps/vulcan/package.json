@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@universe/jupiter-kore": "workspace:*",
     "@tauri-apps/plugin-deep-link": "~2",
     "next": "~16.1.6",
     "react": "^19.0.0",
