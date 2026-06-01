@@ -25,15 +25,6 @@ INFISICAL_PROJECT_ID=$(echo $CONFIG | jq -r '.infisicalProjectId')
 INFISICAL_ENVIRONMENT_MAP='{"development": "dev", "production": "prod"}'
 INFISICAL_ENVIRONMENT=$(echo $INFISICAL_ENVIRONMENT_MAP | jq -r ".$ENVIRONMENT")
 
-echo "Loading common secrets"
-infisical secrets \
-  --domain "$INFISICAL_DOMAIN" \
-  --env "$INFISICAL_ENVIRONMENT" \
-  --projectId "$INFISICAL_PROJECT_ID" \
-  --path "/common" \
-  --output dotenv >> ".env.local"
-source .env.local
-
 generate_env() {
   local TYPE="$1"
   local NAME="$2"

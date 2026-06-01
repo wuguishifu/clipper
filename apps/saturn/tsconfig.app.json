@@ -4,7 +4,6 @@
     "outDir": "dist",
     "module": "esnext",
     "types": ["node"],
-    "rootDir": "src",
     "moduleResolution": "bundler",
     "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo",
     "emitDecoratorMetadata": true,
