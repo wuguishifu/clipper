@@ -1,0 +1,9 @@
+{
+  "name": "@clipper/saturn",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@clipper/contracts-saturn": "workspace:*",
+    "@clipper/nest-common": "workspace:*"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "name": "saturn",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/saturn/src",
+  "projectType": "application",
+  "tags": ["scope:server"],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "assets": [],
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/saturn",
+        "main": "apps/saturn/src/main.ts",
+        "tsConfig": "apps/saturn/tsconfig.app.json",
+        "isolatedConfig": true,
+        "webpackConfig": "apps/saturn/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "saturn:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "saturn:build:development"
+        },
+        "production": {
+          "buildTarget": "saturn:build:production"
+        }
+      }
+    },
+    "circular-deps": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm madge . --circular --extensions js,ts,tsx --warning --exclude '(^|/)convex/_generated(/|$)'",
+        "cwd": "apps/saturn"
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "name": "@clipper/contracts-saturn",
+  "name": "contracts-saturn",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/contracts-saturn/src",
   "projectType": "library",
