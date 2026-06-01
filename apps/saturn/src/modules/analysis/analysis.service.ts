@@ -2,7 +2,9 @@ import { Injectable, Logger } from '@nestjs/common';
 
 import { ClipResult, clipResultSchema } from '@clipper/contracts-saturn';
 
+import { ConvexUser } from '../../auth/convex';
 import { ClaudeService } from '../claude/claude.service';
+import { EntitlementsService } from '../entitlements/entitlements-service';
 
 import {
   exampleResponse,
@@ -15,9 +17,25 @@ import {
 export class AnalysisService {
   private readonly logger = new Logger(AnalysisService.name);
 
-  constructor(private readonly claudeService: ClaudeService) {}
+  constructor(
+    private readonly claudeService: ClaudeService,
+    private readonly entitlementsService: EntitlementsService,
+  ) {}
 
-  public async analyzeTranscript(transcript: string): Promise<ClipResult> {
+  public async analyzeTranscript({
+    transcript,
+    user,
+  }: {
+    transcript: string;
+    user: ConvexUser;
+  }): Promise<ClipResult> {
+    if (
+      !user.isAdmin &&
+      !(await this.entitlementsService.resolveEntitlements({ userId: user.id }))
+    ) {
+      throw new Error('User is not subscribed');
+    }
+
     this.logger.debug('analysis_service-analyze_transcript-start');
     const response = await this.claudeService.createMessage({
       model: 'claude-sonnet-4-6',
