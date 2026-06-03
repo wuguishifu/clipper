@@ -1,0 +1,17 @@
+{
+  "name": "ui-web",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/ui-web/src",
+  "projectType": "library",
+  "tags": ["scope:shared"],
+  "// targets": "to see all targets run: nx show project ui-web --web",
+  "targets": {
+    "circular-deps": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm madge . --circular --extensions js,ts,tsx --warning --exclude '(^|/)convex/_generated(/|$)'",
+        "cwd": "libs/ui-web"
+      }
+    }
+  }
+}

@@ -20,6 +20,9 @@
     },
     {
       "path": "./apps/vulcan"
+    },
+    {
+      "path": "./libs/ui-web"
     }
   ]
 }
