@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@clipper/jupiter-kore": "workspace:*",
-    "@clipper/ui-web": "workspace:*"
+    "@clipper/ui-web": "workspace:*",
+    "@clipper/contracts-saturn": "workspace:*"
   }
 }

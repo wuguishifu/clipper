@@ -72,6 +72,7 @@
     "@tauri-apps/plugin-store": "^2.4.3",
     "@ts-rest/core": "3.53.0-rc.1",
     "@ts-rest/nest": "3.53.0-rc.1",
+    "@ts-rest/react-query": "3.53.0-rc.1",
     "axios": "^1.16.1",
     "axios-retry": "^4.5.0",
     "class-variance-authority": "^0.7.1",
