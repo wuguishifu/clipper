@@ -47,6 +47,9 @@
   ],
   "references": [
     {
+      "path": "../../libs/contracts-saturn"
+    },
+    {
       "path": "../../libs/ui-web"
     },
     {
