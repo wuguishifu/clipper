@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 
 import { ConvexClientProvider } from '../providers/convex-provider';
+import { ReduxProvider } from '../providers/redux-provider';
 import './global.css';
 
 export const metadata: Metadata = {
@@ -16,7 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen flex flex-col">
-        <ConvexClientProvider>{children}</ConvexClientProvider>
+        <ReduxProvider>
+          <ConvexClientProvider>{children}</ConvexClientProvider>
+        </ReduxProvider>
       </body>
     </html>
   );

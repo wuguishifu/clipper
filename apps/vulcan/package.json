@@ -4,10 +4,6 @@
   "private": true,
   "dependencies": {
     "@clipper/jupiter-kore": "workspace:*",
-    "@clipper/ui-web": "workspace:*",
-    "@tauri-apps/plugin-deep-link": "~2",
-    "next": "~16.1.6",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "@clipper/ui-web": "workspace:*"
   }
 }
