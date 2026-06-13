@@ -33,6 +33,13 @@
       "icons/icon.icns",
       "icons/icon.ico"
     ],
+    "externalBin": [
+      "binaries/ffmpeg",
+      "binaries/whisper-cli"
+    ],
+    "resources": {
+      "binaries/ggml-base.en.bin": "ggml-base.en.bin"
+    },
     "android": {
       "debugApplicationIdSuffix": ".debug"
     }

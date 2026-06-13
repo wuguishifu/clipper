@@ -1,6 +1,6 @@
 'use client';
 
-import { tsRestFetchApi } from '@ts-rest/core';
+import { initClient, tsRestFetchApi } from '@ts-rest/core';
 import { initTsrReactQuery } from '@ts-rest/react-query/v5';
 
 import { saturnRootRouter } from '@clipper/contracts-saturn';
@@ -13,15 +13,22 @@ export const getSaturnServerUrl = () => {
   return url;
 };
 
+const makeApi = async (args: Parameters<typeof tsRestFetchApi>[0]) => {
+  const authToken = await authTokenService.getAuthToken({
+    forceRefreshToken: false,
+  });
+  args.headers.Authorization = `Bearer ${authToken}`;
+  return tsRestFetchApi(args);
+};
+
+// React Query hooks (for use in components)
 export const saturnApi = initTsrReactQuery(saturnRootRouter, {
   baseUrl: getSaturnServerUrl(),
-  api: async (args) => {
-    const authToken = await authTokenService.getAuthToken({
-      forceRefreshToken: false,
-    });
+  api: makeApi,
+});
 
-    args.headers.Authorization = `Bearer ${authToken}`;
-
-    return tsRestFetchApi(args);
-  },
+// Plain async client (for use in non-hook async code)
+export const saturnClient = initClient(saturnRootRouter, {
+  baseUrl: getSaturnServerUrl(),
+  api: makeApi,
 });

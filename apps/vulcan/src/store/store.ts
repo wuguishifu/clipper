@@ -2,11 +2,13 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
 
 import { authReducer, authSliceName } from '../app/modules/auth/auth.slice';
+import { clipsReducer, clipsSliceName } from '../app/modules/clips/clips.slice';
 
 import { tauriStorage } from './tauri-storage';
 
 const rootReducer = combineReducers({
   [authSliceName]: authReducer,
+  [clipsSliceName]: clipsReducer,
 });
 
 const persistConfig = {

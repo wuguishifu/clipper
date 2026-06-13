@@ -1,3 +1,5 @@
+mod commands;
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let mut builder = tauri::Builder::default();
@@ -6,12 +8,13 @@ pub fn run() {
     {
         builder = builder.plugin(tauri_plugin_single_instance::init(|_app, argv, _cwd| {
           println!("a new app instance was opened with {argv:?} and the deep link event was already triggered");
-          // when defining deep link schemes at runtime, you must also check `argv` here
         }));
     }
 
     builder = builder.plugin(tauri_plugin_deep_link::init());
     builder = builder.plugin(tauri_plugin_store::Builder::default().build());
+    builder = builder.plugin(tauri_plugin_shell::init());
+    builder = builder.plugin(tauri_plugin_dialog::init());
 
     builder
         .setup(|app| {
@@ -24,6 +27,11 @@ pub fn run() {
             }
             Ok(())
         })
+        .invoke_handler(tauri::generate_handler![
+            commands::extract_audio,
+            commands::transcribe_audio,
+            commands::trim_clip,
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

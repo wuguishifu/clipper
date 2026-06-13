@@ -1,0 +1,5 @@
+# Actual binaries are large and platform-specific — don't commit them.
+# For CI/releases, download/build these and place them here before building.
+ggml-base.en.bin
+ffmpeg-*
+whisper-cli-*
